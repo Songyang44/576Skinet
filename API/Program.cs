@@ -18,6 +18,12 @@ builder.Services.AddDbContext<StoreContext>(opt=>
 );
 
 builder.Services.AddScoped<IProductRepository, ProductsRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+//AppDomain.CurrentDomain.GetAssemblies()：这是一个方法调用，获取当前应用程序域中加载的所有程序集。
+//GetAssemblies() 方法返回一个 Assembly 数组，其中包含了当前应用程序域中加载的所有程序集。
+//AppDomain. CurrentDomain. GetAssemblys(): This is a method call that retrieves all assemblies loaded in the current application domain. 
+//The GetAssemblys() method returns an Assembly array that contains all the assemblies loaded in the current application domain.
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -28,6 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
