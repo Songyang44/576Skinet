@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Error;
 using AutoMapper;
 using Core.Entity;
 using Core.Interfaces;
@@ -53,6 +54,14 @@ namespace API.Controllers
 
         //get a product
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]
+        /*
+        ProducesResponseType 是 ASP.NET Core 中的一个特性（Attribute），
+        用于标记控制器的操作方法（Action）所返回的数据类型和HTTP状态码。
+        该特性可以用于为 API 文档生成工具提供元数据，
+        以帮助客户端开发人员了解API的预期响应类型和状态码。
+        */
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id){
             var spec= new ProductsWithTypesAndBrandsSpecification(id);
             var product=await _productRepo.GetEntityWithSpec(spec);
