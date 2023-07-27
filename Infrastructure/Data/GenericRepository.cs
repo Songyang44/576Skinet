@@ -56,5 +56,10 @@ namespace Infrastructure.Data
             //Then, it returns the query results obtained from the static method.
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(),spec);
         }
+
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
     }
 } 

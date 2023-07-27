@@ -29,9 +29,38 @@ namespace Core.Specifications
         //At initialization, it is assigned an empty list object. 
         //This design can be used to specify the relevant entities or navigation attributes that need to be included, 
         //and is an empty list by default.
+
+        //Order
         public List<Expression<Func<T, object>>> Include {get;} = 
         new List<Expression<Func<T, object>>>();
 
+        public Expression<Func<T, object>> OrderBy{get; private set;}
+
+        public Expression<Func<T, object>> OrderByDescending {get; private set;}
+
+        protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
+        {
+            OrderBy=orderByExpression;
+        }
+
+        protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescExpression)
+        {
+            OrderByDescending=orderByDescExpression;
+        }
+
+        //Pagin
+        public int Take {get; private set;}
+
+        public int Skip {get; private set;}
+
+        public bool IsPaginEnabled {get; private set;}
+
+        protected void ApplyPaging(int skip, int take)
+        {
+            Skip=skip;
+            Take=take;
+            IsPaginEnabled=true;
+        }
 
         //这段代码定义了一个受保护的方法 AddInclude，用于向 Include 属性添加包含的 lambda 表达式。
         //这个方法可以在当前类或派生类的内部使用，以便动态地添加需要包含的实体或导航属性

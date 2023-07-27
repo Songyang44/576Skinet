@@ -18,6 +18,21 @@ namespace Infrastructure.Data
                 query=query.Where(spec.Criteria);//如果规范的 Criteria 不为 null，则将其应用于查询，通过 Where 方法进行筛选。
                 //If the Criteria in the specification are not null, apply them to the query and filter through the Where method.
             }
+
+            if(spec.OrderBy!=null)
+            {
+                query=query.OrderBy(spec.OrderBy);
+            }
+
+            if(spec.OrderByDescending!=null)
+            {
+                query=query.OrderByDescending(spec.OrderByDescending);
+            }
+
+            if(spec.IsPaginEnabled)
+            {
+                query=query.Skip(spec.Skip).Take(spec.Take);
+            }
             //这行代码使用 Aggregate 方法将规范的 Include 列表中的每个 lambda 表达式应用于查询。
             //它从起始查询 query 开始，并依次将每个 lambda 表达式应用于查询的结果，通过 Include 方法添加相关实体或导航属性
             //This line of code uses the Aggregate method to apply each lambda expression in the canonical Include list to the query. 
