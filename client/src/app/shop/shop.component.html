@@ -22,6 +22,7 @@
                 [class.active]="brand.id === brandIdSelected"
                 [value]="brand.id"
                 (click)="onBrandSelected(brand.id)"
+                style="cursor: pointer;"
                 >{{brand.name}}</li>
       
             </ul>
@@ -30,6 +31,7 @@
             </h5>
             <ul class="list-group my-3">
                 <li class="list-group-item" 
+                style="cursor: pointer;"
                 *ngFor="let type of types"
                 [class.active]="type.id === typeIdSelected"
                 [value]="type.id"
@@ -46,7 +48,7 @@
                [pageSize]="shopParams.pageSize">
                 </app-paging-header>
                 <div class="d-flex mt-2">
-                    <input type="text" placeholder="Search" class="form-control me-2" #search>
+                    <input type="text" placeholder="Search" class="form-control me-2" #search (input)="onSearch()">
                     <button (click)="onSearch()" class="btn btn-outline-primary mx-2">Search</button>
                     <button (click)="onReset()" class="btn btn-outline-success">Research</button>
                 </div>

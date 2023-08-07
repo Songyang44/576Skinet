@@ -70,21 +70,30 @@ export class ShopComponent implements OnInit {
 
   onBrandSelected(brandId:number)
   {
-    this.brandIdSelected=brandId;
-    this.shopParams.pageIndex=1;
+    const params = this.shopService.getShopParams();
+    params.brandId=brandId;
+    params.pageIndex=1;
+    this.shopService.setShopParams(params);
+    this.shopParams = params;
     this.getProduct();
   }
 
   onTypeSelected(typeId:number)
   {
-    this.typeIdSelected=typeId;
-    this.shopParams.pageIndex=1;
+    const params = this.shopService.getShopParams();
+    params.typeId=typeId;
+    params.pageIndex=1;
+    this.shopService.setShopParams(params);
+    this.shopParams = params;
     this.getProduct();
   }
 
   onSortSelected(event:any)
   {
-    this.sortSelected=event.target.value;
+    const params = this.shopService.getShopParams();
+    params.sort=event.target.value;
+    this.shopService.setShopParams(params);
+    this.shopParams = params;
     this.getProduct();
   }
 
